@@ -16,6 +16,5 @@ class Car
         Map destination;
         Map location;
         Car(double length, double height, double weight, Map location, Map destination, string reg_no);
-        //Car(){}
 };
 #endif
