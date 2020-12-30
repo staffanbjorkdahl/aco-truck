@@ -12,11 +12,8 @@
 #include "AntColonyOptimization.h"
 
 using std::cout;
-using std::string;
-using std::vector;
 using std::endl;
-using std::find;
-using namespace std;
+
 
 void print_path(vector<Map> p)
 {
@@ -122,7 +119,7 @@ int main()
     }
     cout << "Path length : "<< best_path_length << endl;
     cout << "Shortest path and coordinates based on " << NO_ITERATIONS << " iterations: " << endl;
-    ofstream myfile;
+    std::ofstream myfile;
     myfile.open("path.txt");
     for(int i = 0; path.size() != i; i++)
     {
