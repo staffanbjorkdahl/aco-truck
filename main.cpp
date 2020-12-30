@@ -81,8 +81,8 @@ int main()
     cities = truck1.get_cities_for_ACO(cars_to_be_sent, truck_origin, truck_destination);
     truck_destination.idx = cities.size();
 
-    int const NO_ANTS = 5; 
-    int const NO_ITERATIONS = 50000;
+    int const NO_ANTS = 10; 
+    int const NO_ITERATIONS = 100;
     double const EVAPORATION_RATE = 0.3;
     double nearest_neighbour_path_length = get_nearest_neighbour_path_length(cities);
     double tao0 = NO_ANTS/nearest_neighbour_path_length;
