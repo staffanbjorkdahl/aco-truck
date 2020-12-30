@@ -25,7 +25,7 @@ vector<Map> build_path(vector<vector<double> > tao_matrix, vector<Map> cities); 
 double calculate_path_distance(vector<Map> tot_path, Map final_dest);
 
 vector<vector<double> > update_tao_for_ant(double path_length,vector<vector<double> > delta_tao_matrix,
- vector<Map> tot_path, vector<Map> cities);
+ vector<Map> tot_path);
 
 vector<vector<double> > vaporize(vector<vector<double> > tao_matrix, vector<vector<double> > delta_tao, double evap_rate);
 #endif

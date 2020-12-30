@@ -2,19 +2,17 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <iostream>
 #include "truck.h"
 #include "map.h"
 #include "car.h"
 
-
-using std::string;
-using std::vector;
-using std::find;
+using std::cout; using std::endl;
 
 
 
 
-        Truck::Truck(int truck_no, int truck_size, int max_load, string location_truck)
+        Truck::Truck(int truck_no, int truck_size, int max_load, std::string location_truck)
         {
             this->truck_no = truck_no;
             this->truck_size = truck_size;
@@ -23,42 +21,25 @@ using std::find;
             this->loaded_cars = loaded_cars;
             this->allowed_weight = max_load;   
         };
-        vector<double > Truck::assign_compartment_size()
-        {
-            vector<double> compartment_size;
-            double compartment_height1 = 1.8;
-            double compartment_length1 = 3.5;
-            double compartment_height2 = 1.4;
-            double compartment_length2 = 4.5;
 
-            for(int i = 0; i < truck_size/2; i++)
-            {
-                compartment_size.push_back(compartment_length1);
-                compartment_size.push_back(compartment_height1);
-                compartment_size.push_back(compartment_length2);
-                compartment_size.push_back(compartment_height2);
-            }             
-
-            return compartment_size;
-        }
         void Truck::print_truck()
         {
-            string cab_top = "  __ ";
-            string cab_middle1 = " /  | ";
-            string cab_middle2 = " ––– ";
-            string cab_bottom1 = "|   |";
-            string cab_bottom2 = " –––  ";
-            string wheel = "  o";
-            string cab_width(cab_bottom2.size()/2-1, ' ');
+            std::string cab_top = "  __ ";
+            std::string cab_middle1 = " /  | ";
+            std::string cab_middle2 = " ––– ";
+            std::string cab_bottom1 = "|   |";
+            std::string cab_bottom2 = " –––  ";
+            std::string wheel = "  o";
+            std::string cab_width(cab_bottom2.size()/2-1, ' ');
 
-            string compartment_top = " –––––";
-            string compartment_bottom = " –––––";
-            string delimiter = "|";
-            string space(4,' ');
-            string space_occupied = "  x ";
-            string space_delimiter = delimiter + space + delimiter;
-            string space_delimiter_occupied = delimiter + space_occupied + delimiter;
-            string temp1, temp2, temp3, temp4, temp5, temp6;
+            std::string compartment_top = " –––––";
+            std::string compartment_bottom = " –––––";
+            std::string delimiter = "|";
+            std::string space(4,' ');
+            std::string space_occupied = "  x ";
+            std::string space_delimiter = delimiter + space + delimiter;
+            std::string space_delimiter_occupied = delimiter + space_occupied + delimiter;
+            std::string temp1, temp2, temp3, temp4, temp5, temp6;
 
             int count_occu1 = 1;
             int count_occu2 = 1;
@@ -66,8 +47,8 @@ using std::find;
             int count_occu_bottom = 0;
 
             // Sort the compartment positions
-            vector<int> temp_vector_top_floor;
-            vector<int> temp_vector_bottom_floor;
+            std::vector<int> temp_vector_top_floor;
+            std::vector<int> temp_vector_bottom_floor;
 
             for(int i = 0; i != tot_comp_positions.size(); i++)
             {
@@ -86,8 +67,8 @@ using std::find;
             sort(temp_vector_bottom_floor.begin(), temp_vector_bottom_floor.end());   
 
             //Arrange the sorted positions such that it fits the build up of the printing
-            vector<vector<int> > tot_comp_positions_temp;
-            vector<int> temp_vector_top_floor_for_sorting;
+            std::vector<std::vector<int> > tot_comp_positions_temp;
+            std::vector<int> temp_vector_top_floor_for_sorting;
             for(int i = 0; i != temp_vector_top_floor.size(); i++)
             {
                 temp_vector_top_floor_for_sorting.push_back(1); // Top floor
@@ -95,7 +76,7 @@ using std::find;
                 tot_comp_positions_temp.push_back(temp_vector_top_floor_for_sorting);
                 temp_vector_top_floor_for_sorting.clear();
             }
-            vector<int> temp_vector_bottom_floor_for_sorting;
+            std::vector<int> temp_vector_bottom_floor_for_sorting;
             for(int i = 0; i != temp_vector_bottom_floor.size(); i++)
             {
                 temp_vector_bottom_floor_for_sorting.push_back(2); // Bottom floor
@@ -190,7 +171,7 @@ using std::find;
             }
             else
             {
-                vector<int> comp_position;
+                std::vector<int> comp_position;
                 comp_position.push_back(pos_y);
                 comp_position.push_back(pos_x);
                 tot_comp_positions.push_back(comp_position);
@@ -265,40 +246,26 @@ using std::find;
             
         }
 
-        void Truck::load_optimal_order(vector<Map> best_path, vector<Car> cars_to_be_sent) //BYT TILL BEST_PATH
+        void Truck::load_optimal_order(std::vector<Map> best_path, std::vector<Car> cars_to_be_sent) //BYT TILL BEST_PATH
         {
 
             int count = 0;
             Car car_test = cars_to_be_sent[0];
-
-            //load_car(2,1,car_test);
-            //cout << "cars" << cars_to_be_sent.size() << endl;
             
             for(int i = best_path.size()-1; i != 0 ; i--)
             {
-                /*cout << "---------------------------------------" << endl;
-                cout << best_path[i].city_name << endl;
-                cout << "---------------------------------------" << endl;*/
                 for(int j = 0; cars_to_be_sent.size() != j; j++)
                 {
-                    //cout << cars_to_be_sent[j].destination.city_name << endl;
-                    
                     if(cars_to_be_sent[j].destination.city_name == best_path[i].city_name)
                     {
                         count++;
-                        
-                        //cout << "cccc" << count << endl;
                         if(count < truck_size/2 + 1)
                         {
                             load_car(1, count, cars_to_be_sent[j]);
-                            //cout << count << j <<
-                            //cout << "1111111" << endl;
                         }
                         else if(count > truck_size/2 && count < truck_size + 1)
                         {
                             load_car(2, count - truck_size/2, cars_to_be_sent[j]);
-                            //cout << count - truck_size/2 << j << endl;
-                            //cout << "2222222" << endl;
                         }   
                     }
 
@@ -307,14 +274,13 @@ using std::find;
             }
 
         }
-        vector<Map> Truck::get_cities_for_ACO(vector<Car> cars_collection, Map truck_origin, Map truck_destination)
+        std::vector<Map> Truck::get_cities_for_ACO(std::vector<Car> cars_collection, Map truck_origin, Map truck_destination)
         {
-            vector<Map> cities_for_ACO;
-            vector<string> cities_for_ACO_string;  
-            vector<std::string> cars_collection_dest;
+            std::vector<Map> cities_for_ACO;
+            std::vector<std::string> cities_for_ACO_string;  
+            std::vector<std::string> cars_collection_dest;
 
             
-
             for(int i = 0; cars_collection.size() != i; i++)
             {
                 cars_collection_dest.push_back(cars_collection[i].destination.city_name);
@@ -324,27 +290,18 @@ using std::find;
             cities_for_ACO.push_back(truck_origin);
             cities_for_ACO_string.push_back(truck_origin.city_name);
 
-            
             for(int i = 0; cars_collection_dest.size() != i; i++)
             {
                 if(std::find(cities_for_ACO_string.begin(), cities_for_ACO_string.end(), cars_collection_dest[i]) == cities_for_ACO_string.end())
                 {
                     cities_for_ACO.push_back(cars_collection[i].destination);
                     cities_for_ACO_string.push_back(cars_collection[i].destination.city_name);
-                    //cout <<"sssss" << cars_collection[i].destination.city_name << endl;
                 }   
             }
-            
-            //cities_for_ACO = std::unique(cities_for_ACO.begin(), cities_for_ACO.end());
-            //std::set<vector<Map> > s( cities_for_ACO.begin(), cities_for_ACO.end() );
-            //cities_for_ACO.assign( s.begin(), s.end() );
-            //cities_for_ACO.erase( unique( cities_for_ACO.begin(), cities_for_ACO.end() ), cities_for_ACO.end() );
-
             cout << "size " << cities_for_ACO.size() << endl;
             for(int i = 0; cities_for_ACO.size() != i; i++)
             {
                 cities_for_ACO[i].idx = i;
-                //cout << cities_for_ACO[i].city_name << cities_for_ACO[i].idx << endl;
             }
             return cities_for_ACO;
         }

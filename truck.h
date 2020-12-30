@@ -2,11 +2,9 @@
 #define TRUCK_H 
 #include <string>
 #include <vector>
-#include <iostream>
 #include "map.h"
 #include "car.h"
 
-using std::cout; using std::endl;
 
 
 class Truck
@@ -24,7 +22,7 @@ class Truck
         std::vector<Car> loaded_cars;
         
         Truck(int truck_no, int size, int max_load, std::string location_truck = "default_Gothenburg");
-        std::vector<double > assign_compartment_size();
+
         void print_truck();
         void load_car(int pos_y, int pos_x, Car car);
         void unload_car(Car &car);
@@ -35,4 +33,3 @@ class Truck
 
 };
 #endif
-//test comment for git here and now what the fuck AGAIN
