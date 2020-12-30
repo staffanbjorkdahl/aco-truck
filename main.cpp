@@ -82,7 +82,7 @@ int main()
     truck_destination.idx = cities.size();
 
     int const NO_ANTS = 5; 
-    int const NO_ITERATIONS = 2;
+    int const NO_ITERATIONS = 50000;
     double const EVAPORATION_RATE = 0.3;
     double nearest_neighbour_path_length = get_nearest_neighbour_path_length(cities);
     double tao0 = NO_ANTS/nearest_neighbour_path_length;

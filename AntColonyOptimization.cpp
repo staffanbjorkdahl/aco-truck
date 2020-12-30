@@ -61,7 +61,6 @@ double get_nearest_neighbour_path_length(std::vector<Map> city_location)
                 dist_check = dist;
                 temp_visitied_city_idx = j;
                 dist_sum += dist_check;
-
             }
         }
         visited_city_idx = temp_visitied_city_idx;
@@ -206,12 +205,8 @@ std::vector<Map> build_path(std::vector<std::vector<double> > tao_matrix, std::v
                 prob_path = numerator/denominator; // Probablity for a given step
                 sum_prob += prob_path;
                 picked_city_idx = next_city_idx;
-                next_city_idx++;
             }
-            else
-            {
-                next_city_idx++;
-            } 
+            next_city_idx++;
         }
         visited_cities.push_back(cities[picked_city_idx]);
         visited_cities_idx.push_back(picked_city_idx);
